@@ -20,7 +20,7 @@ router.post("/login", async (req, res, next) => {
     }
     const user = await User.authenticate(username, password);
     if (user) {
-      const token = jwt.sign({ username, type: "admin" }, SECRET_KEY);
+      const token = jwt.sign({ username }, SECRET_KEY);
       User.updateLoginTimestamp(username);
       return res.json({ message: "Logged in!", token });
     }
@@ -48,7 +48,7 @@ router.post("/register", async (req, res, next) => {
     console.log(user);
 
     if (user) {
-      const token = jwt.sign({ username, type: "admin" }, SECRET_KEY);
+      const token = jwt.sign({ username }, SECRET_KEY);
       User.updateLoginTimestamp(username);
       return res.json({ message: "registered!", token });
     }
